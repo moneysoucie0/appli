@@ -23,7 +23,7 @@
 
       <form method="POST" action=''>
          <fieldset required>
-          <legend>renseigné le vehicule</legend>
+          <legend>Renseigné le vehicule</legend>
           <select name="nbChevaux">
             <option disabled="" selected="">nombre de cheveau fiscaux</option>
             <option value=3>3 et moins</option>
@@ -32,6 +32,7 @@
             <option value=6>6</option>
             <option value=7>7 et plus</option>
           </select>
+          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
           <br>
           <?php
           $idVisiteur = obtenirIdUserConnecte();
