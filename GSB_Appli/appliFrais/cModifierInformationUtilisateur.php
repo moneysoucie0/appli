@@ -26,7 +26,6 @@ require($repInclude . "_sommaire.inc.php");
   <p>
     <form method="POST" action="">
       <?php
-      $etape = '';
       if (obtenirRole($idUser, $idConnexion)["Role"]==3){
         $etape = 'recherche utilisateur';
         ?>
@@ -63,15 +62,18 @@ require($repInclude . "_sommaire.inc.php");
     </form>
     <form method="POST" action="">
       <?php
+      //var_dump($_POST['utilisateur']);
       //var_dump($_POST);
       if (!empty($_POST)){
+        if (!isset($_POST['utilisateur'])){
+          $_POST['utilisateur'] = $idUser;
+        };
         $utilisateur = obtenirTouteInfoUtilisateur ($_POST['utilisateur'],$idConnexion);
 
       };
+
       ?>
-      <?php
-      if ($etape = ''){
-        ?>
+
       <div class="corpsForm">
 
 
@@ -143,9 +145,14 @@ require($repInclude . "_sommaire.inc.php");
         <input id="annuler" type="reset" value="Effacer" size="20" maxlength="2" />
         <br>
         <br>
-
         <?php
         if (!empty($_POST)){
+          if (!isset($_POST['password'])){
+            $_POST['password'] = 'init';
+          };
+          if (!isset($_POST['passwordVerif'])){
+            $_POST['passwordVerif'] = 'initi';
+          };
           //var_dump($_POST);
           //VerificationIdLibre($_POST['id'], $idConnexion);
           if ($_POST['password'] == $_POST['passwordVerif'] && !empty($_POST['password'])) {
@@ -167,11 +174,19 @@ require($repInclude . "_sommaire.inc.php");
             ?><p class="info"> L'utilisateur a bien modifié</p><?php
           }
           else {
-            ?><p class="erreur"> Les deux mot de passe sont differant</p><?php
+
+            ?><p class="erreur" id="error"> Les deux mot de passe sont differant</p>
+            <script type="text/javascript">
+            if (!error){
+              document.getElementById(error)style.display = "block";
+              var error = true;
+          }
+            </script>
+            <?php
           };
 
 
-        };
+
         ?>
       </form>
     </div>
@@ -183,3 +198,6 @@ require($repInclude . "_sommaire.inc.php");
   require($repInclude . "_pied.inc.html");
   require($repInclude . "_fin.inc.php");
   ?>
+  <script type="text/javascript">
+      document.getElementById("error").style.display = "none";
+  </script>

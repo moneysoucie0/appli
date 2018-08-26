@@ -32,7 +32,7 @@
             <option value=6>6</option>
             <option value=7>7 et plus</option>
           </select>
-          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          
           <br>
           <?php
           $idVisiteur = obtenirIdUserConnecte();
