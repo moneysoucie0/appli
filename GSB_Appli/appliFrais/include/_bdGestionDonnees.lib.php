@@ -118,7 +118,7 @@ function obtenirDetailFicheFrais($idCnx, $unMois, $unIdVisiteur) {
 * @param resource $idCnx identifiant de connexion
 * @param string $unMois mois demand� (MMAAAA)
 * @param string $unIdVisiteur id visiteur
-* @return bool�en existence ou non de la fiche de frais
+* @return bool �en existence ou non de la fiche de frais
 */
 function existeFicheFrais($idCnx, $unMois, $unIdVisiteur) {
   $unMois = filtrerChainePourBD($unMois, $idCnx);
@@ -542,4 +542,91 @@ function encrypte($string){
   $string = hash('sha256', $string);
   return ($string);
 };
+/**
+*permet au comptable de changer les montant de rembousement
+
+*@param $etp est un float corespondant au forfait etape
+*@param $rep est un float corespondant au frait pour un repas
+*@param $nui est un float corespondant au frait pour une nuit
+*@param $km est un float corespondant au frait kilometrique
+**/
+function changerRemboursement($etp, $rep , $nui, $km, $idCnx){
+  $req = "UPDATE fraisforfait
+  set montant = " .$etp. "
+  WHERE id = 'ETP'";
+  mysqli_query($idCnx, $req);
+
+  $req = "UPDATE fraisforfait
+  set montant = ".$rep."
+  WHERE id = 'REP'";
+  mysqli_query($idCnx, $req);
+
+  $req = "UPDATE fraisforfait
+  set montant = ".$nui."
+  WHERE id = 'NUI'";
+  mysqli_query($idCnx, $req);
+
+  $req = "UPDATE fraisforfait
+  set montant = ". $km ."
+  WHERE id = 'KM'";
+  mysqli_query($idCnx, $req);
+  return true;
+
+};
+
+function recupererFraitForfait($idcnx){
+  $tab = [];
+  $req = "SELECT id , montant
+          FROM fraisforfait";
+  $res = mysqli_fetch_all(mysqli_query($idcnx , $req));
+  foreach ($res as $array) {
+      array_push( $tab, $array[1]);
+  };
+return $tab ;
+};
+
+
+function calculRemboursementKm($idVisiteur, $mois, $idCnx){
+  $km = obtenirKM($idVisiteur, $mois, $idCnx);
+  $chv = obtenirVoiture($idVisiteur, $idCnx);
+  if ($km <5000) {
+    if ($chv = 3){
+      return ($km * 0.41)
+    }if ($chv = 4){
+      return ($km * 0.493)
+    }if ($chv = 5){
+      return ($km * 0.543)
+    }if ($chv = 6){
+      return ($km * 0.568)
+    }if ($chv = 7){
+      return ($km * 0.595)
+    }
+  }
+  elseif ($km >20000) {
+    if ($chv = 3){
+      return ($km * 0.286)
+    }if ($chv = 4){
+      return ($km * 0.332)
+    }if ($chv = 5){
+      return ($km * 0.364)
+    }if ($chv = 6){
+      return ($km * 0.382)
+    }if ($chv = 7){
+      return ($km * 0.401)
+    }
+  }
+  else{
+    if ($chv = 3){
+      return ($km * 0.245 + 824)
+    }if ($chv = 4){
+      return ($km * 0.493 + 1082)
+    }if ($chv = 5){
+      return ($km * 0.543 + 1188)
+    }if ($chv = 6){
+      return ($km * 0.568 + 1244)
+    }if ($chv = 7){
+      return ($km * 0.595 + 1288)
+    }
+  }
+}
 ?>

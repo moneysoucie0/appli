@@ -141,7 +141,7 @@ require($repInclude . "_sommaire.inc.php");
           ?>
           <br><br>
         </fieldset>
-        <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer les modofication" />
+        <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer les modification" />
         <input id="annuler" type="reset" value="Effacer" size="20" maxlength="2" />
         <br>
         <br>
