@@ -591,41 +591,41 @@ function calculRemboursementKm($idVisiteur, $mois, $idCnx){
   $chv = obtenirVoiture($idVisiteur, $idCnx);
   if ($km <5000) {
     if ($chv = 3){
-      return ($km * 0.41)
+      return ($km * 0.41);
     }if ($chv = 4){
-      return ($km * 0.493)
+      return ($km * 0.493);
     }if ($chv = 5){
-      return ($km * 0.543)
+      return ($km * 0.543);
     }if ($chv = 6){
-      return ($km * 0.568)
+      return ($km * 0.568);
     }if ($chv = 7){
-      return ($km * 0.595)
+      return ($km * 0.595);
     }
   }
   elseif ($km >20000) {
     if ($chv = 3){
-      return ($km * 0.286)
+      return ($km * 0.286);
     }if ($chv = 4){
-      return ($km * 0.332)
+      return ($km * 0.332);
     }if ($chv = 5){
-      return ($km * 0.364)
+      return ($km * 0.364);
     }if ($chv = 6){
-      return ($km * 0.382)
+      return ($km * 0.382);
     }if ($chv = 7){
-      return ($km * 0.401)
+      return ($km * 0.401);
     }
   }
   else{
     if ($chv = 3){
-      return ($km * 0.245 + 824)
+      return ($km * 0.245 + 824);
     }if ($chv = 4){
-      return ($km * 0.493 + 1082)
+      return ($km * 0.493 + 1082);
     }if ($chv = 5){
-      return ($km * 0.543 + 1188)
+      return ($km * 0.543 + 1188);
     }if ($chv = 6){
-      return ($km * 0.568 + 1244)
+      return ($km * 0.568 + 1244);
     }if ($chv = 7){
-      return ($km * 0.595 + 1288)
+      return ($km * 0.595 + 1288);
     }
   }
 }
