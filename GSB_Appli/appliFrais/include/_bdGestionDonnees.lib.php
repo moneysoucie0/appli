@@ -360,11 +360,13 @@ function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
 * @return void
 */
 function modifierEtatFicheFrais($idCnx, $unMois, $unIdVisiteur, $unEtat) {
-  $requete = "update FicheFrais set idEtat = '" . $unEtat .
-  "', dateModif = now() where idVisiteur ='" .
-  $unIdVisiteur . "' and mois = '". $unMois . "'";
-  mysqli_query($idCnx, $requete);
-}
+  $requete = "UPDATE fichefrais
+              SET dateModif=now(),idEtat='".$unEtat."'
+              WHERE  idVisiteur ='" .$unIdVisiteur . "'
+              AND mois = '". $unMois . "'";
+  echo($requete);
+  var_dump( mysqli_query($idCnx, $requete));
+  }
 /**
 *Permet l'obtention du nombre de Km
 
@@ -628,5 +630,33 @@ function calculRemboursementKm($idVisiteur, $mois, $idCnx){
       return ($km * 0.595 + 1288);
     }
   }
+};
+//
+
+function obtenirFicheFrait($mois, $idCnx){
+  $req =  "SELECT 	visiteur.id, visiteur.nom, visiteur.prenom, lignefraisforfait.etp,
+                    lignefraisforfait.km, lignefraisforfait.nui, lignefraisforfait.rep,
+                    etat.libelle, fichefrais.mois
+          FROM 	    visiteur, lignefraisforfait, fichefrais , etat
+          WHERE 	  visiteur.id = fichefrais.idVisiteur
+          AND	      visiteur.id = lignefraisforfait.idVisiteur
+          and 	    fichefrais.mois = '".$mois."'
+          AND 	    lignefraisforfait.mois = fichefrais.mois
+          AND 	    fichefrais.idEtat = etat.id
+          AND	      etat.id != 'RB'";
+    //echo($req);
+    $rep = mysqli_query($idCnx, $req);
+    $rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
+    return $rep;
+
+};
+function obtenirTousMoisFicheFrais($idCnx){
+$req = "SELECT distinct mois FROM fichefrais WHERE 1 ORDER BY mois";
+$rep = mysqli_query($idCnx,$req);
+$rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
+return $rep;
+
+
 }
+
 ?>

@@ -32,7 +32,7 @@ require($repInclude . "_sommaire.inc.php");
         <p>
           <label for="utilisateur">Utilisateur :</label>
           <select name="utilisateur" required >
-            <option disabled="" selected="">entrer l' utilisateur</option>
+            <option disabled="" selected="" value="">entrer l' utilisateur</option>
 
             <?php
             $listUser = obtenirTousUtilisateur($idConnexion);
