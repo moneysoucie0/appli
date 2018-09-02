@@ -40,10 +40,10 @@ require($repInclude . "_sommaire.inc.php");
   </form>
 </fieldset>
 <?php
-var_dump($_POST);
+//var_dump($_POST);
 if(!empty($_POST)){
-  var_dump($listMois);
-  var_dump($_POST['mois']);
+//  var_dump($listMois);
+  //var_dump($_POST['mois']);
   $mois = $_POST['mois'];
 }
 /*else {
@@ -51,7 +51,7 @@ if(!empty($_POST)){
     var_dump($mois[0]);
 };*/
   $fiches = obtenirFicheFrait($mois,$idConnexion);
-  var_dump($fiches);
+  //var_dump($fiches);
 
  ?>
   <fieldset >
@@ -124,7 +124,7 @@ if (isset($_POST)){
   //var_dump($etat);
   //var_dump($_POST);
   foreach ($_POST as $info) {
-    print_r($info);
+    //print_r($info);
     ?><br>------<br><?php
     if(modifierEtatFicheFrais($idConnexion, $mois, $info, $etat)){
       ?><p class="info"> les fiche on bien était modifier</p><?php

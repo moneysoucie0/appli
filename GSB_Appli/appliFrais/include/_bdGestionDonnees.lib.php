@@ -658,5 +658,11 @@ return $rep;
 
 
 }
+function recupererTypeJustificatif($idCnx){
+  $req = "SELECT id , libelle FROM fraisforfait";
+  $rep = mysqli_query($idCnx,$req);
+  $rep = mysqli_fetch_all($rep);
+  return $rep;
+};
 
 ?>
