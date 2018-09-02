@@ -41,10 +41,26 @@ var_dump($typeJustificatif)
 
       </select>
       <br>
+      <select class="mois" name="mois" >
+        <option value="" disabled selected>mois</option>
+        <?php
+        $listMois = obtenirTousMoisFicheFrais($idConnexion);
+
+        foreach ($listMois as $mois ) {
+          //var_dump($mois);
+          $noMois = intval(substr($mois[0], 4, 2));
+          $annee = intval(substr($mois[0], 0, 4));
+          ?>
+          <option value=<?php echo ($mois[0]); ?>><?php echo obtenirLibelleMois($noMois) . " " . $annee; ?></option>
+          <?php
+        };
+        ?>
+      </select>
+      <br>
 <input type="file" name="fichier" value="" title="selectioner un fichier" required>
 <br>
 <br>
-<input type="submit" id="ok" title="valider">
+<input type="submit" id="ok" title="valider" name="upload">
     </form>
   </fieldset>
 
