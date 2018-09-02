@@ -361,12 +361,12 @@ function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
 */
 function modifierEtatFicheFrais($idCnx, $unMois, $unIdVisiteur, $unEtat) {
   $requete = "UPDATE fichefrais
-              SET dateModif=now(),idEtat='".$unEtat."'
-              WHERE  idVisiteur ='" .$unIdVisiteur . "'
-              AND mois = '". $unMois . "'";
-  echo($requete);
+  SET dateModif=now(),idEtat='".$unEtat."'
+  WHERE  idVisiteur ='" .$unIdVisiteur . "'
+  AND mois = '". $unMois . "'";
+  //echo($requete);
   var_dump( mysqli_query($idCnx, $requete));
-  }
+}
 /**
 *Permet l'obtention du nombre de Km
 
@@ -379,7 +379,8 @@ function obtenirKM($idVisiteur, $mois, $idCnx){
   FROM lignefraisforfait
   WHERE idvisiteur = '".$idVisiteur."'
   AND mois = '".$mois."'";
-  return (mysql_fetch_assoc(mysql_query($req, $idCnx)));
+  $km = mysqli_query($idCnx,$req);
+  return (mysqli_fetch_assoc(mysqli_query($idCnx,$req)));
 }
 /**
 *Permet l'obtention du nombre de cheveaux de la voiture du visiteur
@@ -579,17 +580,17 @@ function changerRemboursement($etp, $rep , $nui, $km, $idCnx){
 function recupererFraitForfait($idcnx){
   $tab = [];
   $req = "SELECT id , montant
-          FROM fraisforfait";
+  FROM fraisforfait";
   $res = mysqli_fetch_all(mysqli_query($idcnx , $req));
   foreach ($res as $array) {
-      array_push( $tab, $array[1]);
+    array_push( $tab, $array[1]);
   };
-return $tab ;
+  return $tab ;
 };
 
 
 function calculRemboursementKm($idVisiteur, $mois, $idCnx){
-  $km = obtenirKM($idVisiteur, $mois, $idCnx);
+  $km = floatval(obtenirKM($idVisiteur, $mois, $idCnx));
   $chv = obtenirVoiture($idVisiteur, $idCnx);
   if ($km <5000) {
     if ($chv = 3){
@@ -635,26 +636,26 @@ function calculRemboursementKm($idVisiteur, $mois, $idCnx){
 
 function obtenirFicheFrait($mois, $idCnx){
   $req =  "SELECT 	visiteur.id, visiteur.nom, visiteur.prenom, lignefraisforfait.etp,
-                    lignefraisforfait.km, lignefraisforfait.nui, lignefraisforfait.rep,
-                    etat.libelle, fichefrais.mois
-          FROM 	    visiteur, lignefraisforfait, fichefrais , etat
-          WHERE 	  visiteur.id = fichefrais.idVisiteur
-          AND	      visiteur.id = lignefraisforfait.idVisiteur
-          and 	    fichefrais.mois = '".$mois."'
-          AND 	    lignefraisforfait.mois = fichefrais.mois
-          AND 	    fichefrais.idEtat = etat.id
-          AND	      etat.id != 'RB'";
-    //echo($req);
-    $rep = mysqli_query($idCnx, $req);
-    $rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
-    return $rep;
+  lignefraisforfait.km, lignefraisforfait.nui, lignefraisforfait.rep,
+  etat.libelle, fichefrais.mois
+  FROM 	    visiteur, lignefraisforfait, fichefrais , etat
+  WHERE 	  visiteur.id = fichefrais.idVisiteur
+  AND	      visiteur.id = lignefraisforfait.idVisiteur
+  and 	    fichefrais.mois = '".$mois."'
+  AND 	    lignefraisforfait.mois = fichefrais.mois
+  AND 	    fichefrais.idEtat = etat.id
+  AND	      etat.id != 'RB'";
+  //echo($req);
+  $rep = mysqli_query($idCnx, $req);
+  $rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
+  return $rep;
 
 };
 function obtenirTousMoisFicheFrais($idCnx){
-$req = "SELECT distinct mois FROM fichefrais WHERE 1 ORDER BY mois";
-$rep = mysqli_query($idCnx,$req);
-$rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
-return $rep;
+  $req = "SELECT distinct mois FROM fichefrais WHERE 1 ORDER BY mois";
+  $rep = mysqli_query($idCnx,$req);
+  $rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
+  return $rep;
 
 
 }

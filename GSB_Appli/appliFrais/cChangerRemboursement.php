@@ -26,7 +26,7 @@
         <form action="" method="post">
 
         <fieldset>
-          <legend>créé un utilisateur</legend>
+          <legend>changer les remboursement</legend>
           <p>
             <label for="etp">Etape :</label>
             <input type="text" name="etp" value="<?php echo($fraitforfait[0]); ?>" maxlength="4" required readonly>
@@ -34,10 +34,6 @@
           <p>
             <label for="nui">Nuit :</label>
             <input type="text" name="nui" value="<?php echo($fraitforfait[2]); ?>" maxlength="30"  required>
-          </p>
-          <p>
-            <label for="km">Kilometre :</label>
-            <input type="text" name="km" value="<?php echo($fraitforfait[1]); ?>" maxlength="30"required>
           </p>
           <p>
             <label for="rep"> Repas :</label>
