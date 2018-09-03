@@ -47,6 +47,9 @@
            <li class="smenu">
               <a href="cSaisirVoiture.php" title="Saisie de ma voiture">Saisie du vehicule</a>
             </li>
+            <li class="smenu">
+               <a href="pdf.php" title="Saisie de ma voiture">generer les pdf </a>
+             </li>
 
             <?php
              };

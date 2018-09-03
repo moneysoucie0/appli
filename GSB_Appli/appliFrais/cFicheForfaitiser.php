@@ -97,7 +97,7 @@ if(!empty($_POST)){
 
 
           <?php
-          echo($fiche[8]);
+          //echo($fiche[8]);
           $i++;
           $Mois = $fiche[8];
         };
@@ -125,7 +125,7 @@ if (isset($_POST)){
   //var_dump($_POST);
   foreach ($_POST as $info) {
     //print_r($info);
-    ?><br>------<br><?php
+    ?><br><br><?php
     if(modifierEtatFicheFrais($idConnexion, $mois, $info, $etat)){
       ?><p class="info"> les fiche on bien était modifier</p><?php
     }

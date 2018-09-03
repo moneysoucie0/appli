@@ -666,4 +666,14 @@ function recupererTypeJustificatif($idCnx){
   return $rep;
 };
 
+function recupererToutLesMoisVisiteur($idVisiteur , $idCnx){
+$req = "SELECT mois
+        FROM lignefraisforfait
+        WHERE idvisiteur = 'a17'
+        ORDER BY mois DESC
+        LIMIT 3";
+$res = mysqli_query($idCnx , $req);
+$res = mysqli_fetch_all($res);
+return $res;
+};
 ?>
