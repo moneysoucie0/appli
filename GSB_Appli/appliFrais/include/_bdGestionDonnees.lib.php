@@ -632,7 +632,7 @@ function calculRemboursementKm($idVisiteur, $mois, $idCnx){
     }
   }
 };
-//
+
 
 function obtenirFicheFrait($mois, $idCnx){
   $req =  "SELECT 	visiteur.id, visiteur.nom, visiteur.prenom, lignefraisforfait.etp,
@@ -644,7 +644,8 @@ function obtenirFicheFrait($mois, $idCnx){
   and 	    fichefrais.mois = '".$mois."'
   AND 	    lignefraisforfait.mois = fichefrais.mois
   AND 	    fichefrais.idEtat = etat.id
-  AND	      etat.id != 'RB'";
+  AND	      etat.id != 'RB'
+  AND	      etat.id != 'RF'";
   //echo($req);
   $rep = mysqli_query($idCnx, $req);
   $rep = mysqli_fetch_all(mysqli_query($idCnx, $req));

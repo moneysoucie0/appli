@@ -109,6 +109,7 @@ if(!empty($_POST)){
       <option value="CL">Saisie clôturée</option>
       <option value="RB">Rembourcée</option>
       <option value="VA">validée et mise en paiement</option>
+      <option value="RF">Refusé</option>
     </select>
     </fieldset>
     <br>

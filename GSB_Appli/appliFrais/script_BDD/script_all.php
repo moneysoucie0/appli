@@ -145,5 +145,11 @@ $req = "INSERT INTO visiteur(id, nom, prenom, login, mdp, adresse, cp, ville, da
 				VALUES ('A000', 'admin','admin','aadmin','08697536d494d1c3b6b42bf9a96efcb2d79b85f49f47125cf9502245ad2d7aef','','','','',null,3)";
 $bdd->exec($req);
 echo (' admin créé');
-echo (' done')
+
+$req = "INSERT INTO etat(id, libelle) VALUES ('RF','Refusé')";
+$bdd->exec($req);
+echo (' état refusé créé');
+
+echo (' done');
+
 ?>
