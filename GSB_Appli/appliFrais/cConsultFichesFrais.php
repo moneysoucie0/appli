@@ -177,7 +177,30 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
     }
   }
   ?>
+  <fieldset>
+    <legend>selectioné le mois pour la generation des fiche de frais</legend>
+
+  <form class="" action="pdf.php" method="post">
+    <select class="" name="mois">
+      <?php
+      $allMois = (recupererToutLesMoisVisiteur($idVisiteur, $idConnexion));
+
+      foreach ($allMois as $mois) {
+        $mois = ($mois[0]);
+        $noMois = intval(substr($mois, 4, 2));
+        $annee = intval(substr($mois, 0, 4));
+        ?>
+        <option value="<?php echo $mois; ?>"><?php echo obtenirLibelleMois($noMois) . " " . $annee; ?></option>
+        <?php
+      }
+      ?>
+    </select>
+    <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer le vehicule" />
+
+  </form>
+    </fieldset>
 </div>
+
 <?php
 require($repInclude . "_pied.inc.html");
 require($repInclude . "_fin.inc.php");

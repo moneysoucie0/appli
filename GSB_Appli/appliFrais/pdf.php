@@ -27,39 +27,28 @@ while($row = mysqli_fetch_assoc($result)){
   array_push($header, $row['libelle']);
 }
 $result = "";
-$allMois = (recupererToutLesMoisVisiteur($idVisiteur, $idConnexion));
 ?>
 
-<form class="" action="" method="post">
-  <select class="" name="mois">
-    <?php
-    foreach ($allMois as $mois) {
-      $mois = ($mois[0]);
-      $noMois = intval(substr($mois, 4, 2));
-      $annee = intval(substr($mois, 0, 4));
-      ?>
-      <option value="<?php echo $mois; ?>"><?php echo obtenirLibelleMois($noMois) . " " . $annee; ?></option>
-      <?php
-    }
-    ?>
-  </select>
-  <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer le vehicule" />
 
-</form>
+
 <?php
-var_dump($_POST);
+//var_dump($_POST);
 $mois = $_POST['mois'];
-var_dump($mois);
+//var_dump($mois);
 
 $req = "SELECT `ETP`,`KM`,`NUI`,`REP` FROM `lignefraisforfait` WHERE idVisiteur = '".$idVisiteur."' and mois = '".$mois."'";
-var_dump($req);
+//var_dump($req);
 $result = mysqli_query($idConnexion, $req);
-var_dump($result);
+//var_dump($result);
 
 $docforfait = "forfait.txt";
 $texte = "";
-$row = mysqli_fetch_assoc($result)
-  $texte = $texte . $row['ETP'] .$row['KM'] .$row['NUI'] .$row['REP'] . ";";
+$row = mysqli_fetch_assoc($result);
+//var_dump($row);
+$row = [$row['ETP'],$row['KM'],$row['NUI'],$row['REP']];
+foreach ($row as $element) {
+    $texte = $texte . $element . ";";
+}
 file_put_contents($docforfait, $texte);
 
 
@@ -82,6 +71,7 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetDrawColor(0,0,128);
 $data = $pdf->LoadData('forfait.txt');
+$header = array('Forfait Etape', 'Frais kilométrique', 'Nuitée Hôtel', 'Repas Restaurant');
 $pdf->Forfait($header, $data);
 $pdf->Ln();
 $pdf->Cell(0, 10, "", 0, 1);

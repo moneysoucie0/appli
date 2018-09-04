@@ -85,7 +85,7 @@ class PDF extends FPDF
         // En-tête
         $w = array(47.5, 47.5, 47.5, 47.5);
         for($i=0;$i<count($header);$i++)
-            $this->Cell($w[$i],7,$header[$i],1,0,'C',true);
+            $this->Cell($w[$i],7,utf8_decode($header[$i]),1,0,'C',true);
         $this->Ln();
         // Restauration des couleurs et de la police
         $this->SetFillColor(224,235,255);
