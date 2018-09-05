@@ -58,9 +58,11 @@
             <li class="smenu">
                <a href="cFicheForfaitiser.php" title="fiche forfaitiser">fiche forfaitiser </a>
             </li>
+            <!--
             <li class="smenu">
                <a href="cFicheHorsForfait.php" title="fiche hors forfait">fiche hors forfait</a>
             </li>
+            -->
             <li class="smenu">
                <a href="cChangerRemboursement.php" title="changer les remboursement">changer les remboursement</a>
              </li>

@@ -577,6 +577,11 @@ function changerRemboursement($etp, $rep , $nui, $km, $idCnx){
 
 };
 
+/**
+*Permet l'obtention de tous les utilisateur de l'application
+
+*@param $idCnx un string de l'instance de connexion
+*/
 function recupererFraitForfait($idcnx){
   $tab = [];
   $req = "SELECT id , montant
@@ -588,7 +593,13 @@ function recupererFraitForfait($idcnx){
   return $tab ;
 };
 
+/**
+*Permet le calcule du remboursement
 
+*@param $idVisiteur un string de l'id fu visiteur
+*@param $mois un string du mois selectionée
+*@param $idCnx un string de l'instance de connexion
+*/
 function calculRemboursementKm($idVisiteur, $mois, $idCnx){
   $km = floatval(obtenirKM($idVisiteur, $mois, $idCnx));
   $chv = obtenirVoiture($idVisiteur, $idCnx);
@@ -633,7 +644,12 @@ function calculRemboursementKm($idVisiteur, $mois, $idCnx){
   }
 };
 
+/**
+*Permet l'obtention des fiche de frait
 
+*@param $mois un string du mois selectionée
+*@param $idCnx un string de l'instance de connexion
+*/
 function obtenirFicheFrait($mois, $idCnx){
   $req =  "SELECT 	visiteur.id, visiteur.nom, visiteur.prenom, lignefraisforfait.etp,
   lignefraisforfait.km, lignefraisforfait.nui, lignefraisforfait.rep,
@@ -652,14 +668,25 @@ function obtenirFicheFrait($mois, $idCnx){
   return $rep;
 
 };
+
+/**
+*Permet l'obtention de tous les mois avec les fiche de frais
+
+*@param $idCnx un string de l'instance de connexion
+*/
 function obtenirTousMoisFicheFrais($idCnx){
   $req = "SELECT distinct mois FROM fichefrais WHERE 1 ORDER BY mois";
   $rep = mysqli_query($idCnx,$req);
   $rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
   return $rep;
 
+};
 
-}
+/**
+*Permet l'obtention les type de justificatif
+
+*@param $idCnx un string de l'instance de connexion
+*/
 function recupererTypeJustificatif($idCnx){
   $req = "SELECT id , libelle FROM fraisforfait";
   $rep = mysqli_query($idCnx,$req);
@@ -667,6 +694,14 @@ function recupererTypeJustificatif($idCnx){
   return $rep;
 };
 
+
+/**
+*Permet l'obtention de tous lesmois ou le visiteur a une fiche de frais
+
+
+*@param $idVisiteur un string de l'id du visiteur
+*@param $idCnx un string de l'instance de connexion
+*/
 function recupererToutLesMoisVisiteur($idVisiteur , $idCnx){
 $req = "SELECT mois
         FROM lignefraisforfait

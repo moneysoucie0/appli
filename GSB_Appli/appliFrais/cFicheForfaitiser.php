@@ -18,44 +18,49 @@ require($repInclude . "_sommaire.inc.php");
 <!-- Division principale -->
 <div id="contenu">
   <h2>gestion des fiches de frait forfaitisé</h2>
-<fieldset>
-  <legend>selectioner le mois des fiche de frait a afficher</legend>
   <form class="" action="" method="post">
-    <select class="mois" name="mois" >
-      <option value="" disabled selected>mois</option>
-      <?php
-      $listMois = obtenirTousMoisFicheFrais($idConnexion);
+    <div class="corpsForm">
+      <fieldset>
+        <legend>selectioner le mois des fiche de frait a afficher</legend>
 
-      foreach ($listMois as $mois ) {
-        //var_dump($mois);
-        $noMois = intval(substr($mois[0], 4, 2));
-        $annee = intval(substr($mois[0], 0, 4));
-        ?>
-        <option value=<?php echo ($mois[0]); ?>><?php echo obtenirLibelleMois($noMois) . " " . $annee; ?></option>
-        <?php
-      };
-      ?>
-    </select>
-    <input type="submit" name="recherche mois" value="valider le mois" size="20" >
+        <select class="mois" name="mois" >
+          <option value="" disabled selected>mois</option>
+          <?php
+          $listMois = obtenirTousMoisFicheFrais($idConnexion);
+
+          foreach ($listMois as $mois ) {
+            //var_dump($mois);
+            $noMois = intval(substr($mois[0], 4, 2));
+            $annee = intval(substr($mois[0], 0, 4));
+            $mois = $mois[0];
+            ?>
+            <option value=<?php echo ($mois[0]); ?>><?php echo obtenirLibelleMois($noMois) . " " . $annee; ?></option>
+            <?php
+          };
+          ?>
+        </select>
+        <input type="submit" name="recherche mois" value="valider le mois" size="20" >
+      </fieldset>
+    </div>
   </form>
-</fieldset>
-<?php
-//var_dump($_POST);
-if(!empty($_POST)){
-//  var_dump($listMois);
-  //var_dump($_POST['mois']);
-  $mois = $_POST['mois'];
-}
-/*else {
-    $mois = array_pop($listMois);
-    var_dump($mois[0]);
-};*/
-  $fiches = obtenirFicheFrait($mois,$idConnexion);
-  //var_dump($fiches);
 
- ?>
-  <fieldset >
-    <legend>selection des fiche de frait et l'etat a changer</legend>
+  <?php
+  //var_dump($_POST);
+  if(!empty($_POST)){
+    //  var_dump($listMois);
+    //var_dump($_POST['mois']);
+    $mois = $_POST['mois'];
+  }
+  /*else {
+  $mois = array_pop($listMois);
+  var_dump($mois[0]);
+};*/
+$fiches = obtenirFicheFrait($mois,$idConnexion);
+//var_dump($fiches);
+
+?>
+<fieldset >
+  <legend>selection des fiche de frait et l'etat a changer</legend>
 
 
   <form class="" action="" method="post">
@@ -63,14 +68,14 @@ if(!empty($_POST)){
     <table class="listeLegere">
       <thead>
         <tr>
-          <td></td>
-          <td>nom</td>
-          <td>prenom</td>
-          <td>etape</td>
-          <td>kilomètre</td>
-          <td>nuit</td>
-          <td>repas</td>
-          <td>etat</td>
+          <th></th>
+          <th>nom</th>
+          <th>prenom</th>
+          <th>etape</th>
+          <th>kilomètre</th>
+          <th>nuit</th>
+          <th>repas</th>
+          <th>etat</th>
         </tr>
       </thead>
       <tbody>
@@ -111,11 +116,11 @@ if(!empty($_POST)){
       <option value="VA">validée et mise en paiement</option>
       <option value="RF">Refusé</option>
     </select>
-    </fieldset>
-    <br>
+  </fieldset>
+  <br>
 
-    <input type="submit" id="ok" title="valider les fiche de frais" onclick="if(document.getElementById(etat)!=''){}" >
-  </form>
+  <input type="submit" id="ok" title="valider les fiche de frais" onclick="if(document.getElementById(etat)!=''){}" >
+</form>
 </div>
 <?php
 //var_dump($_POST['listeAccept']);

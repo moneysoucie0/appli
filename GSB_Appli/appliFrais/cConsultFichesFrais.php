@@ -45,6 +45,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
       <input type="hidden" name="etape" value="validerConsult" />
       <p>
         <label for="lstMois"> </label>
+
         <select id="lstMois" name="lstMois" title="Sélectionnez le mois souhaité pour la fiche de frais">
           <?php
           // on propose tous les mois pour lesquels le visiteur a une fiche de frais
@@ -63,6 +64,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
           mysqli_free_result($idJeuMois);
           ?>
         </select>
+        <div style="clear: both;"></div>
       </p>
     </div>
     <div class="piedForm">
