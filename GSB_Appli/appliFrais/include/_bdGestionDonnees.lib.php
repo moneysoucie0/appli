@@ -511,6 +511,7 @@ function ModifierUtilisateur ($id, $nom,$prenom,$mdp,$adresse,$cp,$ville,$role,$
   //var_dump ($req);
   mysqli_query($idCnx, $req);
 };
+
 /**
 *Permet l'obtention de toute les information sur un utilisateur
 
@@ -523,6 +524,7 @@ function obtenirTouteInfoUtilisateur ($id,$idCnx){
   //mysqli_query($idCnx, $req)
   return(mysqli_fetch_assoc(mysqli_query($idCnx, $req)));
 };
+
 /**
 *Permet l'obtention de tous les utilisateur de l'application
 
@@ -534,6 +536,19 @@ function obtenirTousUtilisateur($idCnx){
   //mysqli_query($idCnx, $req)
   return(mysqli_fetch_all(mysqli_query($idCnx, $req)));
 };
+
+/**
+*Permet l'obtention de tous les utilisateur de l'application
+
+*@param $idCnx un string de l'instance de connexion
+*/
+function obtenirTousUtilisateurNom($idCnx){
+
+  $req = "SELECT id ,nom, prenom  FROM visiteur";
+  //mysqli_query($idCnx, $req)
+  return(mysqli_fetch_all(mysqli_query($idCnx, $req)));
+};
+
 
 /**
 *Permet l'encryptage d'une chaine de caractére selon la metode utilisé pour les mot de passe

@@ -52,13 +52,13 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
           <option disabled="" selected="" value="">entrer l' utilisateur</option>
 
           <?php
-          $listUser = obtenirTousUtilisateur($idConnexion);
+          $listUser = obtenirTousUtilisateurNom($idConnexion);
           var_dump($listUser);
           foreach ($listUser as $user ) {
             var_dump($user);
 
             ?>
-            <option value=<?php echo ($user[0]); ?>><?php echo($user[1]);?></option>
+            <option value=<?php echo ($user[0]); ?>><?php echo($user[1].' ' ); echo ($user[2]);?></option>
             <?php
           };
           ?>
@@ -204,7 +204,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
           <?php
           // demande de la requête pour obtenir la liste des éléments hors
           // forfait du visiteur connecté pour le mois demandé
-          $req = obtenirReqEltsHorsForfaitFicheFrais($moisSaisi, $idvis, $idConnexion);
+          $req = obtenirReqEltsHorsForfaitFicheFrais($moisSaisi, $idVis, $idConnexion);
           $idJeuEltsHorsForfait = mysqli_query( $idConnexion, $req);
           $lgEltHorsForfait = mysqli_fetch_assoc($idJeuEltsHorsForfait);
 
