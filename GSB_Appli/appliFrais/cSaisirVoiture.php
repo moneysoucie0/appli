@@ -32,7 +32,7 @@
             <option value=6>6</option>
             <option value=7>7 et plus</option>
           </select>
-          
+
           <br>
           <?php
           $idVisiteur = obtenirIdUserConnecte();
@@ -43,7 +43,6 @@
           ?>
   <br><br>
           <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer le vehicule" />
-          <input id="annuler" type="reset" value="Effacer" size="20" maxlength="2" />
        </fieldset>
       </form>
   </div>

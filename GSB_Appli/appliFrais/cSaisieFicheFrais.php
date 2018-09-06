@@ -123,7 +123,6 @@
       <p>
         <input id="ok" type="submit" value="Valider" size="20"
                title="Enregistrer les nouvelles valeurs des éléments forfaitisés" />
-        <input id="annuler" type="reset" value="Effacer" size="20" />
       </p>
       </div>
 
@@ -190,7 +189,6 @@
       <p>
         <input id="ajouter" type="submit" value="Ajouter" size="20"
                title="Ajouter la nouvelle ligne hors forfait" />
-        <input id="effacer" type="reset" value="Effacer" size="20" />
       </p>
       </div>
       </form>

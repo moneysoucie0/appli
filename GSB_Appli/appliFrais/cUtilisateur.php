@@ -88,7 +88,6 @@
   <br><br>
           </fieldset>
           <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer l'Utilisateur" />
-          <input id="annuler" type="reset" value="Effacer" size="20" maxlength="2" />
   <br>
 <br>
           <?php

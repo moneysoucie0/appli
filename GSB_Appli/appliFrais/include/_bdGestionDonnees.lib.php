@@ -678,6 +678,7 @@ function obtenirTousMoisFicheFrais($idCnx){
   $req = "SELECT distinct mois FROM fichefrais WHERE 1 ORDER BY mois";
   $rep = mysqli_query($idCnx,$req);
   $rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
+  //var_dump($rep);
   return $rep;
 
 };
@@ -705,7 +706,7 @@ function recupererTypeJustificatif($idCnx){
 function recupererToutLesMoisVisiteur($idVisiteur , $idCnx){
 $req = "SELECT mois
         FROM lignefraisforfait
-        WHERE idvisiteur = 'a17'
+        WHERE idvisiteur = '".$idVisiteur."'
         ORDER BY mois DESC
         LIMIT 3";
 $res = mysqli_query($idCnx , $req);

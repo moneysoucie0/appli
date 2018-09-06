@@ -48,7 +48,7 @@
               <a href="cSaisirVoiture.php" title="Saisie de ma voiture">Saisie du vehicule</a>
             </li>
             <li class="smenu">
-               <a href="pdf.php" title="Saisie de ma voiture">generer les pdf </a>
+               <a href="cUploadFichier.php" title="chager des fichier ">charger les justificatif</a>
              </li>
 
             <?php
@@ -56,7 +56,7 @@
             if ($role['Role'] == 2){
               ?>
             <li class="smenu">
-               <a href="cFicheForfaitiser.php" title="fiche forfaitiser">fiche forfaitiser </a>
+               <a href="cConsultFichesFrais.php" title="fiche forfaitiser">fiche forfaitiser </a>
             </li>
             <!--
             <li class="smenu">
@@ -74,12 +74,6 @@
          <li class="smenu">
             <a href="cUtilisateur.php" title="ajouter un utilisateur">ajouter un utilisateur</a>
          </li>
-         <li class="smenu">
-            <a href="cConsultFichesFrais.php" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
-         </li>
-         <li class="smenu">
-            <a href="cSaisirVoiture.php" title="Saisie de ma voiture">Saisie du vehicule</a>
-          </li>
 
 
        <?php

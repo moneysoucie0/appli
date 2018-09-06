@@ -14,7 +14,16 @@ if ( ! estVisiteurConnecte() )
 }
 ?>
 <?php
+var_dump($_POST);
+var_dump($_FILES);
+echo($_FILES['fichier']['name']);
+if (!isset($_POST['mois'])){
+  $mois = sprintf("%04d%02d", date("Y"), date("m"));
+}
+else{
 $mois = $_POST['mois'];
+};
+var_dump($_POST['typeJustificatif']);
 if (!file_exists("../justificatif")){
   mkdir("../justificatif");
 }
@@ -37,7 +46,7 @@ if( isset($_POST['upload']) ) // si formulaire soumis
 
     // on vérifie maintenant l'extension
     $type_file = $_FILES['fichier']['type'];
-
+echo($type_file);
     if( !strstr($type_file, 'jpg') && !strstr($type_file, 'jpeg') && !strstr($type_file, 'bmp') && !strstr($type_file, 'gif')&& !strstr($type_file, 'png') )
     {
         exit("Le fichier n'est pas une image");
@@ -57,5 +66,5 @@ if( isset($_POST['upload']) ) // si formulaire soumis
 }
  ?>
  <?php
-header("Location: ../cUploadFichier.php")
+//header("Location: ../cUploadFichier.php")
   ?>

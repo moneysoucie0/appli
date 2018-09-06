@@ -18,6 +18,7 @@ require($repInclude . "_sommaire.inc.php");
 $moisSaisi=lireDonneePost("lstMois", "");
 $etape=lireDonneePost("etape","");
 $idVisiteur = obtenirIdUserConnecte();
+$role = obtenirRole($idVisiteur, $idConnexion)['Role'];
 if ($etape != "demanderConsult" && $etape != "validerConsult") {
   // si autre valeur, on considère que c'est le début du traitement
   $etape = "demanderConsult";
@@ -35,34 +36,74 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
     $tabFicheFrais = obtenirDetailFicheFrais($idConnexion, $moisSaisi, obtenirIdUserConnecte());
   }
 }
+
 ?>
 <!-- Division principale -->
 <div id="contenu">
   <h2>Mes fiches de frais</h2>
+  <form method="POST" action="">
+    <?php
+    if (obtenirRole($idUser, $idConnexion)["Role"]==2){
+      ?>
+      <div class="corpsForm">
+      <h3>entrées l'utilisateur </h3>
+      <p>
+        <select name="utilisateur" required >
+          <option disabled="" selected="" value="">entrer l' utilisateur</option>
+
+          <?php
+          $listUser = obtenirTousUtilisateur($idConnexion);
+          var_dump($listUser);
+          foreach ($listUser as $user ) {
+            var_dump($user);
+
+            ?>
+            <option value=<?php echo ($user[0]); ?>><?php echo($user[1]);?></option>
+            <?php
+          };
+          ?>
+        </select>
+      </p>
+      <?php
+    };
+
+    ?>
+
+    <br>
   <h3>Mois à sélectionner : </h3>
-  <form action="" method="post">
-    <div class="corpsForm">
+
       <input type="hidden" name="etape" value="validerConsult" />
       <p>
         <label for="lstMois"> </label>
 
         <select id="lstMois" name="lstMois" title="Sélectionnez le mois souhaité pour la fiche de frais">
+          <option value="" disabled selected>mois</option>
           <?php
+          if ($role == 1){
           // on propose tous les mois pour lesquels le visiteur a une fiche de frais
           $req = obtenirReqMoisFicheFrais(obtenirIdUserConnecte());
           $idJeuMois = mysqli_query($idConnexion, $req);
-          $lgMois = mysqli_fetch_assoc($idJeuMois);
-          while ( is_array($lgMois) ) {
-            $mois = $lgMois["mois"];
-            $noMois = intval(substr($mois, 4, 2));
-            $annee = intval(substr($mois, 0, 4));
-            ?>
-            <option value="<?php echo $mois; ?>"<?php if ($moisSaisi == $mois) { ?> selected="selected"<?php } ?>><?php echo obtenirLibelleMois($noMois) . " " . $annee; ?></option>
-            <?php
-            $lgMois = mysql_fetch_assoc($idJeuMois);
-          }
-          mysqli_free_result($idJeuMois);
+          var_dump($idJeuMois);
+          $listMois = mysqli_fetch_all($idJeuMois);
+          //echo ('visiteur');
+        }
+        elseif ($role == 2) {
+          $listMois = obtenirTousMoisFicheFrais($idConnexion);
+          //var_dump($listMois);
+          //echo('comptable');
+        };
+        //var_dump($lgMois);
+
+        foreach ($listMois as $mois ) {
+          $mois = $mois[0];
+          $noMois = intval(substr($mois, 4, 2));
+          $annee = intval(substr($mois, 0, 4));
+          $mois = $mois;
           ?>
+          <option value=<?php echo ($mois); ?>><?php echo obtenirLibelleMois($noMois) . " " . $annee; ?></option>
+          <?php
+        };
+        ?>
         </select>
         <div style="clear: both;"></div>
       </p>
@@ -71,12 +112,12 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
       <p>
         <input id="ok" type="submit" value="Valider" size="20"
         title="Demandez à consulter cette fiche de frais" />
-        <input id="annuler" type="reset" value="Effacer" size="20" />
       </p>
     </div>
 
   </form>
   <?php
+
 
   // demande et affichage des différents éléments (forfaitisés et non forfaitisés)
   // de la fiche de frais demandée, uniquement si pas d'erreur détecté au contrôle
@@ -96,7 +137,14 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
         <?php
         // demande de la requête pour obtenir la liste des éléments
         // forfaitisés du visiteur connecté pour le mois demandé
-        $req = obtenirReqEltsForfaitFicheFrais($moisSaisi, obtenirIdUserConnecte(), $idConnexion);
+        $moisSaisi = $_POST['lstMois'];
+        if ($role == 2 ){
+          $idVis = $_POST['utilisateur'];
+        }
+        elseif ($role == 1 ) {
+          $idVis = obtenirIdUserConnecte();
+        }
+        $req = obtenirReqEltsForfaitFicheFrais($moisSaisi,$idVis, $idConnexion);
         $idJeuEltsFraisForfait = mysqli_query($idConnexion, $req);
         echo mysqli_error($idConnexion);
         $lgEltForfait = mysqli_fetch_assoc($idJeuEltsFraisForfait);
@@ -156,7 +204,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
           <?php
           // demande de la requête pour obtenir la liste des éléments hors
           // forfait du visiteur connecté pour le mois demandé
-          $req = obtenirReqEltsHorsForfaitFicheFrais($moisSaisi, obtenirIdUserConnecte(), $idConnexion);
+          $req = obtenirReqEltsHorsForfaitFicheFrais($moisSaisi, $idvis, $idConnexion);
           $idJeuEltsHorsForfait = mysqli_query( $idConnexion, $req);
           $lgEltHorsForfait = mysqli_fetch_assoc($idJeuEltsHorsForfait);
 

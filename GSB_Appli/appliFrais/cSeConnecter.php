@@ -72,3 +72,7 @@
     require($repInclude . "_pied.inc.html");
     require($repInclude . "_fin.inc.php");
 ?>
+<script type="text/javascript">
+document.getElementById('menuGauche').style.display = "none";
+
+</script>

@@ -21,14 +21,14 @@
     <h3>type de fichier</h3>
     <?php
 $typeJustificatif = recupererTypeJustificatif($idConnexion);
-var_dump($typeJustificatif)
+//var_dump($typeJustificatif)
      ?>
      <fieldset>
        <legend>selectioner le fichier</legend>
 
-    <form class="" action="include/_uploadFichier.php" method="POST" enctype="multipart/form-data">
+    <form class="" action="include/_uploadFichier.php" method="post" enctype="multipart/form-data">
       <select class="" name="typeJustificatif" required>
-        <option value="" disabled selected>type de fichier</option>
+        <option value="" disabled selected>type de justificatif </option>
         <option value="HF">Hors Forfait</option>
         <?php
           foreach ($typeJustificatif as $idJustificatif) {
@@ -37,11 +37,9 @@ var_dump($typeJustificatif)
             <?php
           }
          ?>
-
-
       </select>
       <br>
-      <select class="mois" name="mois" >
+      <select  name="mois" >
         <option value="" disabled selected>mois</option>
         <?php
         $listMois = obtenirTousMoisFicheFrais($idConnexion);
@@ -57,10 +55,10 @@ var_dump($typeJustificatif)
         ?>
       </select>
       <br>
-<input type="file" name="fichier" value="" title="selectioner un fichier" required>
+<input type="file" name="fichier" title="selectioner un fichier" required>
 <br>
 <br>
-<input type="submit" id="ok" title="valider" name="upload">
+<input type="submit" id="ok" title="valider">
     </form>
   </fieldset>
 
