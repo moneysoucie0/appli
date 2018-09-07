@@ -40,12 +40,13 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
 ?>
 <!-- Division principale -->
 <div id="contenu">
-  <h2>Mes fiches de frais</h2>
+
+  <h2>Fiches de frais</h2>
+  <div class="corpsForm">
   <form method="POST" action="">
     <?php
     if (obtenirRole($idUser, $idConnexion)["Role"]==2){
       ?>
-      <div class="corpsForm">
       <h3>entrées l'utilisateur </h3>
       <p>
         <select name="utilisateur" required >
@@ -154,6 +155,11 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
         // affichée au sein d'une colonne du tableau HTML
         $tabEltsFraisForfait = array();
         //var_dump($lgEltForfait);
+
+
+        //affichage des frait
+
+
         foreach ($lgEltForfait as $libelle => $quantite){
           $tabEltsFraisForfait[$libelle] = $quantite;
           $lgEltForfait = mysqli_fetch_assoc($idJeuEltsFraisForfait);
@@ -162,35 +168,64 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
         ?>
         <table class="listeLegere">
           <caption>Quantités des éléments forfaitisés</caption>
+          <thead>
+            <th>libelle</th>
+            <th>quantite</th>
+            <th>remboursement</th>
+          </thead>
           <tr>
             <?php
+            $i = 0;
+            $prix = recupererFraitForfait($idConnexion);
+            $km = calculRemboursementKm($idVis, $moisSaisi, $idConnexion);
+            var_dump($idVis);
+            var_dump($moisSaisi);
             // premier parcours du tableau des frais forfaitisés du visiteur connecté
             // pour afficher la ligne des libellés des frais forfaitisés
+            var_dump($km);
             foreach ( $tabEltsFraisForfait as $unLibelle => $uneQuantite ) {
               ?>
-              <th><?php echo $unLibelle ; ?></th>
+              <tr>
+              <td class="qteForfait"><?php echo $unLibelle ; ?></td>
+              <td class="qteForfait"><?php echo $uneQuantite ; ?></td>
               <?php
+              if ($unLibelle == 'KM') {
+                $remboursement = calculRemboursementKm($idVis, $moisSaisi, $idConnexion);
+
+                var_dump($remboursement);
+              }
+              else {
+
+                $remboursement = $prix[$i]*$tabEltsFraisForfait[$unLibelle];
+              }
+              /*var_dump($prix);
+
+              var_dump($tabEltsFraisForfait[$unLibelle]);
+              */
+              ?>
+              <td class="qteForfait"><?php echo($remboursement); echo " €";?></td>
+              <?php
+              $i++;
             }
             ?>
-            <th>Rembousement</td>
           </tr>
           <tr>
             <?php
             // second parcours du tableau des frais forfaitisés du visiteur connecté
             // pour afficher la ligne des quantités des frais forfaitisés
-            foreach ( $tabEltsFraisForfait as $unLibelle => $uneQuantite ) {
               ?>
-              <td class="qteForfait"><?php echo $uneQuantite ; ?></td>
-              <?php
-            }
-            ?>
+            <td colspan="2">total</td>
             <td><?php
             $km = calculRemboursementKm($idVisiteur, $mois, $idConnexion);
             $prix = recupererFraitForfait($idConnexion);
             $remboursement = $prix[0]*$tabEltsFraisForfait['ETP']+$km+$prix[2]*$tabEltsFraisForfait['NUI']+$prix[3]*$tabEltsFraisForfait['REP'];
             echo $remboursement;
+            echo " €";
 
             ?></td>
+          </tr>
+          <tr>
+
           </tr>
         </table>
         <table class="listeLegere">

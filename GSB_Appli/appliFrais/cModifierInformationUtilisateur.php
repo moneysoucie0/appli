@@ -141,8 +141,13 @@ require($repInclude . "_sommaire.inc.php");
           ?>
           <br><br>
         </fieldset>
-        <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer les modification" />
+        </div>
 
+        <div class="piedForm">
+
+
+        <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer les modification" />
+</div>
         <br>
         <br>
         <?php
@@ -190,8 +195,7 @@ require($repInclude . "_sommaire.inc.php");
         ?>
       </form>
     </div>
-  </div>
-<?php
+  <?php
 }
  ?>
   <?php

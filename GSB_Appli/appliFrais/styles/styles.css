@@ -156,7 +156,7 @@ ul#menuList a:hover {
   border-style : solid;
   border-color : #000;
   text-align:right ;
-  width : 95%;
+  width : 100%;
   margin-top:0em;
   padding-top: 0.1em;
   border-radius: 3px;
@@ -177,7 +177,8 @@ form {
   float: left;
 }
 .corpsForm  input{
-float: left;
+float:right;
+margin-right:  50%;
 
 }
 .corpsForm  select{

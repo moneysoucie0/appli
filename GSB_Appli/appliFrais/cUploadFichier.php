@@ -30,13 +30,8 @@ $typeJustificatif = recupererTypeJustificatif($idConnexion);
       <select class="" name="typeJustificatif" required>
         <option value="" disabled selected>type de justificatif </option>
         <option value="HF">Hors Forfait</option>
-        <?php
-          foreach ($typeJustificatif as $idJustificatif) {
-            ?>
-              <option value="<?php echo $idJustificatif[0] ?>"><?php echo $idJustificatif[1] ?></option>
-            <?php
-          }
-         ?>
+        <option value="CG">Carte Grise </option>
+        <option value="AT">Autre</option>
       </select>
       <br>
       <select  name="mois" >
