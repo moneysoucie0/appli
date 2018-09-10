@@ -251,9 +251,10 @@ function obtenirReqEltsForfaitFicheFrais($unMois, $unIdVisiteur, $idCnx) {
 */
 function obtenirReqEltsHorsForfaitFicheFrais($unMois, $unIdVisiteur, $idCnx) {
   $unMois = filtrerChainePourBD($unMois, $idCnx);
-  $requete = "select id, date, libelle, montant from LigneFraisHorsForfait
+  $requete = "select id, date, libelle, montant, acceptation from LigneFraisHorsForfait
   where idVisiteur='" . $unIdVisiteur
-  . "' and mois='" . $unMois . "'";
+  . "' and mois='" . $unMois . "'
+  and acceptation <> 'No'";
   return $requete;
 }
 
@@ -379,6 +380,7 @@ function obtenirKM($idVisiteur, $mois, $idCnx){
   FROM lignefraisforfait
   WHERE idvisiteur = '".$idVisiteur."'
   AND mois = '".$mois."'";
+
   $km = mysqli_query($idCnx,$req);
   return (mysqli_fetch_assoc(mysqli_query($idCnx,$req)));
 }
@@ -616,8 +618,15 @@ function recupererFraitForfait($idcnx){
 *@param $idCnx un string de l'instance de connexion
 */
 function calculRemboursementKm($idVisiteur, $mois, $idCnx){
-  $km = floatval(obtenirKM($idVisiteur, $mois, $idCnx));
-  $chv = intval(obtenirVoiture($idVisiteur, $idCnx));
+  /*$km = obtenirKM($idVisiteur, $mois, $idCnx);
+  var_dump($km);
+  var_dump(floatval($km['KM']));
+  $chv = obtenirVoiture($idVisiteur, $idCnx);
+  var_dump($chv);*/
+  $km = floatval(obtenirKM($idVisiteur, $mois, $idCnx)['KM']);
+  $chv = intval(obtenirVoiture($idVisiteur, $idCnx)['vehicule']);
+  /*var_dump($km);
+  var_dump($chv);*/
   if ($km <5000) {
     if ($chv == 3){
       return ($km * 0.41);

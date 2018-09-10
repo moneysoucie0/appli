@@ -176,13 +176,13 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
           <tr>
             <?php
             $i = 0;
-            $prix = recupererFraitForfait($idConnexion);
             $km = calculRemboursementKm($idVis, $moisSaisi, $idConnexion);
-            var_dump($idVis);
-            var_dump($moisSaisi);
+            $prix = recupererFraitForfait($idConnexion);
+            // var_dump($idVis);
+            // var_dump($moisSaisi);
             // premier parcours du tableau des frais forfaitisés du visiteur connecté
             // pour afficher la ligne des libellés des frais forfaitisés
-            var_dump($km);
+            // var_dump($km);
             foreach ( $tabEltsFraisForfait as $unLibelle => $uneQuantite ) {
               ?>
               <tr>
@@ -192,7 +192,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
               if ($unLibelle == 'KM') {
                 $remboursement = calculRemboursementKm($idVis, $moisSaisi, $idConnexion);
 
-                var_dump($remboursement);
+                //var_dump($remboursement);
               }
               else {
 
@@ -214,9 +214,9 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
             // second parcours du tableau des frais forfaitisés du visiteur connecté
             // pour afficher la ligne des quantités des frais forfaitisés
               ?>
-            <td colspan="2">total</td>
+            <td colspan="2">Total</td>
             <td><?php
-            $km = calculRemboursementKm($idVisiteur, $mois, $idConnexion);
+            $km = calculRemboursementKm($idVis, $moisSaisi, $idConnexion);
             $prix = recupererFraitForfait($idConnexion);
             $remboursement = $prix[0]*$tabEltsFraisForfait['ETP']+$km+$prix[2]*$tabEltsFraisForfait['NUI']+$prix[3]*$tabEltsFraisForfait['REP'];
             echo $remboursement;
@@ -231,11 +231,16 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
         <table class="listeLegere">
           <caption>Descriptif des éléments hors forfait - <?php echo $tabFicheFrais["nbJustificatifs"]; ?> justificatifs reçus -
           </caption>
-          <tr>
+          <thead>
+
             <th class="date">Date</th>
             <th class="libelle">Libellé</th>
             <th class="montant">Montant</th>
-          </tr>
+            <th>Etat</th>
+
+        </thead>
+<tbody>
+
           <?php
           // demande de la requête pour obtenir la liste des éléments hors
           // forfait du visiteur connecté pour le mois demandé
@@ -250,12 +255,31 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
               <td><?php echo $lgEltHorsForfait["date"] ; ?></td>
               <td><?php echo filtrerChainePourNavig($lgEltHorsForfait["libelle"]) ; ?></td>
               <td><?php echo $lgEltHorsForfait["montant"] ; ?></td>
+              <form class="" action="" method="post">
+              <td>
+                <input type="date" name="date" value="<?php echo ($moisSaisi); ?>" hidden>
+                <input type="text" name="date" value="<?php echo($idVis); ?>" hidden>
+                <input type="text" name="montant" value="<?php echo($lgEltHorsForfait["montant"]); ?>" hidden>
+                <select class="" name="acceptation">
+                  <option value="" disabled <?php if ($lgEltHorsForfait["acceptation"]=='--'){?> selected <?php } ; ?> >etat</option>
+                  <option value="Ok" <?php if ($lgEltHorsForfait["acceptation"]=='Ok'){?> selected <?php } ; ?> >Accepter</option>
+                  <option value="No" <?php if ($lgEltHorsForfait["acceptation"]=='No'){?> selected <?php } ; ?> >Refuser</option>
+                  <option value="At" <?php if ($lgEltHorsForfait["acceptation"]=='At'){?> selected <?php } ; ?> >en attente de justificatif </option>
+                  <option value="Jm" <?php if ($lgEltHorsForfait["acceptation"]=='Jm'){?> selected <?php } ; ?> >Mauvais justificatif</option>
+                  <option value="Iv" <?php if ($lgEltHorsForfait["acceptation"]=='Iv'){?> selected <?php } ; ?> >justifiactif invalide</option>
+
+                </select>
+                <input type="submit" name="etat" value="Accepter" title="Accepter">
+              </td>
+              </form>
             </tr>
             <?php
             $lgEltHorsForfait = mysqli_fetch_assoc($idJeuEltsHorsForfait);
           }
-          mysqli_Free_result($idJeuEltsHorsForfait);
+
           ?>
+        </tbody>
+
         </table>
       </div>
       <?php

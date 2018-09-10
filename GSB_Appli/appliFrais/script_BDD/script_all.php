@@ -2,7 +2,7 @@
 //instance de connection a la base de donné
 try {
 	$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-	$bdd = new 	PDO('mysql: host=localhost; dbname=gsb_valide', 'root', '',$pdo_options);
+	$bdd = new 	PDO('mysql: host=localhost; dbname=test', 'root', '',$pdo_options);
 
 }
 catch (Exception $e)
@@ -14,7 +14,7 @@ catch (Exception $e)
 //script de hashing de MDP
 // modification de la taille de la colone des mdp
 //exec
-
+$bdd->exec('SET NAMES utf8');
 $bdd->exec("ALTER TABLE visiteur
 			MODIFY COLUMN mdp varchar(64)");
 $req = 'SELECT id,mdp
@@ -118,9 +118,15 @@ $bdd->exec('ALTER TABLE visiteur
 $bdd->exec('ALTER TABLE visiteur
 			ADD role int');
 
-$req = "UPDATE visiteur SET role=1 WHERE role != 3"
+$req = "UPDATE visiteur SET role=1 WHERE role != 3";
 $bdd->exec($req);
 echo (' table visiteur modifier');
+
+$req = "ALTER TABLE lignefraishorsforfait
+				ADD `acceptation` char (2)";
+$bdd->exec($req);
+echo('table ligne dfrait hors forfait modifier ');
+
 
 // script de créationde la table Role
 //ajout des valeur nessecaire et des clef etrangére
