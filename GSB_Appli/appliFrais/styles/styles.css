@@ -3,7 +3,7 @@ body{
     background-color: #77AADD;
   background-image: url(imgs/FONDGLOBAL.jpg);
   background-repeat: repeat-x;
-    margin:0% 0%;
+    margin:0px 0px;
     padding : 0.6em;
     font-family:"Trebuchet MS",Verdana,Geneva,Arial,Helvetica,sans-serif;
     font-size:0.8em;
@@ -22,7 +22,7 @@ body{
 #entete{
   background: linear-gradient(to right,white 238px, rgb(72,198,236) 338px);
   color : #980101;
-  border: solid 0.1em #980101;
+  border: solid 0.1em #77AADD;
   height: 155px;
   padding: 0em;
   width: 100%

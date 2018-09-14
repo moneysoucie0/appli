@@ -540,6 +540,19 @@ function obtenirTousUtilisateur($idCnx){
 };
 
 /**
+*Permet l'obtention de tous les visiteur  de l'application
+
+*@param $idCnx un string de l'instance de connexion
+*/
+function obtenirTousVisiteur($idCnx){
+
+  $req = "SELECT id ,nom, prenom  FROM visiteur Where Role = 1";
+  //mysqli_query($idCnx, $req)
+  return(mysqli_fetch_all(mysqli_query($idCnx, $req)));
+};
+
+
+/**
 *Permet l'obtention de tous les utilisateur de l'application
 
 *@param $idCnx un string de l'instance de connexion
@@ -728,13 +741,18 @@ function recupererTypeJustificatif($idCnx){
 *@param $idCnx un string de l'instance de connexion
 */
 function recupererToutLesMoisVisiteur($idVisiteur , $idCnx){
-$req = "SELECT mois
-        FROM lignefraisforfait
-        WHERE idvisiteur = '".$idVisiteur."'
-        ORDER BY mois DESC
-        LIMIT 3";
-$res = mysqli_query($idCnx , $req);
-$res = mysqli_fetch_all($res);
-return $res;
+  $req = "SELECT mois
+  FROM lignefraisforfait
+  WHERE idvisiteur = '".$idVisiteur."'
+  ORDER BY mois DESC
+  LIMIT 3";
+  $res = mysqli_query($idCnx , $req);
+  $res = mysqli_fetch_all($res);
+  return $res;
 };
+function changerEtatHorsForfait($id, $etat, $idCnx){
+  $req = "UPDATE lignefraishorsforfait SET acceptation = '".$etat."' WHERE id = '".$id."'";
+  mysqli_query($idCnx , $req);
+
+}
 ?>
