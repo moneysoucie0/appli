@@ -3,7 +3,12 @@
 require("./include/fdpf/pdf.php");
 $repInclude = './include/';
 require($repInclude . "_init.inc.php");
-$idVisiteur = obtenirIdUserConnecte();
+if (isset($_POST['idVisiteur'])) {
+  $idVisiteur = $_POST['idVisiteur'];
+}
+else {
+  $idVisiteur = obtenirIdUserConnecte();
+}
 
 function formatageDate($date){
   return $date[8] . $date[9] . "/" . $date[5] . $date[6];

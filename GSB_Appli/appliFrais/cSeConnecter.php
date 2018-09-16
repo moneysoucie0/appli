@@ -58,6 +58,12 @@ require($repInclude . "_entete.inc.html");
         <label for="txtMdp" accesskey="m">* Mot de passe : </label>
         <input type="password" id="txtMdp" name="txtMdp" maxlength="8" size="15" value=""  title="Entrez votre mot de passe"/>
       </p>
+      <div style="clear:both">
+
+      </div>
+    </div>
+    <div style="clear:both">
+
     </div>
     <div class="piedForm">
       <p>

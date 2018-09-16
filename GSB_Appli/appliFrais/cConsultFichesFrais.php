@@ -175,6 +175,10 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
           </thead>
           <tr>
             <?php
+            $dico = array('ETP' => 'Etape',
+                          'KM'=> 'Kilométre',
+                          'NUI' => 'Nuité',
+                          'REP'=> 'Repas');
             $i = 0;
             $km = calculRemboursementKm($idVis, $moisSaisi, $idConnexion);
             $prix = recupererFraitForfait($idConnexion);
@@ -186,7 +190,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
             foreach ( $tabEltsFraisForfait as $unLibelle => $uneQuantite ) {
               ?>
               <tr>
-                <td class="qteForfait"><?php echo $unLibelle ; ?></td>
+                <td class="qteForfait"><?php echo $dico[$unLibelle] ; ?></td>
                 <td class="qteForfait"><?php echo $uneQuantite ; ?></td>
                 <?php
                 if ($unLibelle == 'KM') {
@@ -250,12 +254,13 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
 
               // parcours des éléments hors forfait
               $i=0;
+              $remboursementHf = 0;
               while ( is_array($lgEltHorsForfait) ) {
                 ?>
                 <tr>
                   <td><?php echo $lgEltHorsForfait["date"] ; ?></td>
                   <td><?php echo filtrerChainePourNavig($lgEltHorsForfait["libelle"]) ; ?></td>
-                  <td><?php echo $lgEltHorsForfait["montant"] ; ?></td>
+                  <td><?php echo $lgEltHorsForfait["montant"].'€' ; ?></td>
                   <form class="" action="<?php echo ($repInclude . '_FraisHF.php')?>" method="post">
                     <td>
                       <input type="date" name="date" value="<?php echo ( $lgEltHorsForfait["date"]); ?>" hidden>
@@ -275,10 +280,16 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
 
                   </tr>
                   <?php
+                  $remboursementHf += $lgEltHorsForfait["montant"];
                   $lgEltHorsForfait = mysqli_fetch_assoc($idJeuEltsHorsForfait);
                   $i++;
                 }
                 ?>
+                <tr>
+                  <td colspan="2">Total</td>
+                  <td><?php echo $remboursementHf."€"; ?></td>
+                  <td></td>
+                </tr>
               </tbody>
 
             </table>
@@ -316,6 +327,12 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
           }
           ?>
         </select>
+        <input type="text" name="idVisiteur" value="<?php if (isset($idVis)) {
+          echo ($idVis);
+        }
+        else {
+          echo(obtenirIdUserConnecte());
+        } ?>" hidden>
         <input id="ok" type="submit" value="Valider" size="20" title="générer le pdf" />
 
       </form>

@@ -750,6 +750,15 @@ function recupererToutLesMoisVisiteur($idVisiteur , $idCnx){
   $res = mysqli_fetch_all($res);
   return $res;
 };
+
+/**
+*Permet le changement de l'atat des fiche hors forfait
+
+
+*@param $id un string de l'id de la fiche hors forfait
+*@param $etat un string de l'etat a mettre de la fiche 
+*@param $idCnx un string de l'instance de connexion
+*/
 function changerEtatHorsForfait($id, $etat, $idCnx){
   $req = "UPDATE lignefraishorsforfait SET acceptation = '".$etat."' WHERE id = '".$id."'";
   mysqli_query($idCnx , $req);

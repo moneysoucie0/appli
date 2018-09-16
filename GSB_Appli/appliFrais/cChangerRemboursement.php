@@ -22,8 +22,8 @@
    ?>
   <div id="contenu">
       <h2>gestion des fraits forfaitisés</h2>
-      <div id="corpsForm" >
         <form action="" method="post">
+          <div class="corpsForm" >
 
         <fieldset>
           <legend>changer les remboursement</legend>
@@ -40,6 +40,8 @@
             <input type="text" name="rep" value="<?php echo($fraitforfait[3]); ?>" maxlength="8" required>
           </p>
         </fieldset>
+        </div>
+        <div class="piedForm">
         <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer les modification" />
       </div>
       <?php
