@@ -40,11 +40,11 @@ else{
 };
 if ($_POST['typeJustificatif'] == 'HF') {
   if ($_POST['etape'] == "validerAjoutLigneHF") {
-      verifierLigneFraisHF($_POST['txtDateHF'], $_POST['txtLibelleHF'], $_POST['txtMontantHF'], $tabErreurs);
-      if ( nbErreurs($tabErreurs) == 0 ) {
-          // la nouvelle ligne ligne doit être ajoutée dans la base de données
-          ajouterLigneHF($idConnexion, $mois, obtenirIdUserConnecte(), $_POST['txtDateHF'], $_POST['txtLibelleHF'], $_POST['txtMontantHF']);
-      }
+    verifierLigneFraisHF($_POST['txtDateHF'], $_POST['txtLibelleHF'], $_POST['txtMontantHF'], $tabErreurs);
+    if ( nbErreurs($tabErreurs) == 0 ) {
+      // la nouvelle ligne ligne doit être ajoutée dans la base de données
+      ajouterLigneHF($idConnexion, $mois, obtenirIdUserConnecte(), $_POST['txtDateHF'], $_POST['txtLibelleHF'], $_POST['txtMontantHF']);
+    }
   }
   var_dump($_POST['typeJustificatif']);
   if (!file_exists("../justificatif")){
@@ -68,7 +68,8 @@ elseif ($_POST['typeJustificatif'] == 'CG') {
   if (!file_exists("../justificatif/$idVisiteur/carte_grise")){
     mkdir("../justificatif/$idVisiteur/carte_grise");
   }
-  $content_dir = "../justificatif/$idVisiteur/carte_grise/";// dossier où sera déplacé le fichier
+  $content_dir = "../justificatif/".$idVisiteur."/carte_grise/";// dossier où sera déplacé le fichier
+
 }
 elseif ($_POST['typeJustificatif'] == 'AT') {
   if (!file_exists("../justificatif")){
@@ -118,7 +119,16 @@ if( isset($_POST) ) // si formulaire soumis
 
   echo "Le fichier a bien été uploadé";
 }
+echo "<br>";
+$dir =substr($content_dir,3);
+$lien = $dir.$name_file;
+echo $lien;
+$requete = "SELECT id FROM `lignefraishorsforfait` WHERE 1 order by id desc limit 1";
+$last_id = mysqli_fetch_assoc(mysqli_query($idConnexion, $requete));
+var_dump($last_id);
+$req = "UPDATE `lignefraishorsforfait` SET justificatif='".$lien."' WHERE id = ".$last_id['id']."";
+mysqli_query($idConnexion, $req);
 ?>
 <?php
-//header("Location: ../cUploadFichier.php")
+header("Location: ../cUploadFichier.php")
 ?>

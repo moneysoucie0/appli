@@ -180,7 +180,11 @@ form {
   float: left;
 }
 .corpsForm  input{
-float:right;
+float:left;
+width: 15%;
+margin-left: 20%;
+margin-right: 65%;
+
 
 }
 .corpsForm  select{
@@ -354,4 +358,7 @@ fieldset {
 
   width: auto;
   text-align: left;
+}
+.cb{
+  clear: both;
 }

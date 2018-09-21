@@ -126,7 +126,8 @@ $req = "ALTER TABLE lignefraishorsforfait
 				ADD `acceptation` char (2)";
 $bdd->exec($req);
 echo('table ligne dfrait hors forfait modifier ');
-
+$bdd->exec('ALTER TABLE lignefraishorsforfait ADD COLUMN justificatif char(150)');
+echo "ajout des lien des justificatif ";
 
 // script de créationde la table Role
 //ajout des valeur nessecaire et des clef etrangére

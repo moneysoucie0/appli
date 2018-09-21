@@ -173,25 +173,29 @@ else { // on ne fait rien, étape non prévue
           </legend>
           <p>
             <label for="txtDateHF">* Date : </label>
-            <input type="text" id="txtDateHF" name="txtDateHF" size="12" maxlength="10"
+            <input type="date" id="txtDateHF" name="txtDateHF" size="12" maxlength="10"
             title="Entrez la date d'engagement des frais au format JJ/MM/AAAA"
             value="<?php echo $dateHF; ?>" />
           </p>
+          <div class="cb"></div>
           <p>
             <label for="txtLibelleHF">* Libellé : </label>
             <input type="text" id="txtLibelleHF" name="txtLibelleHF"  maxlength="100"
             title="Entrez un bref descriptif des frais"
             value="<?php echo filtrerChainePourNavig($libelleHF); ?>" />
           </p>
+          <div class="cb"></div>
           <p>
             <label for="txtMontantHF">* Montant : </label>
             <input type="text" id="txtMontantHF" name="txtMontantHF" size="12" maxlength="10"
             title="Entrez le montant des frais (le point est le séparateur décimal)" value="<?php echo $montantHF; ?>" />
+            <div class="cb"></div>
           </p>
           <p>
             <label for="fichier">* Fichier : </label>
             <input type="file" id="fichier" name="fichier" accept=".jpg, .bmp, .png , .jpeg"
-            title="Sélectionnez une pièce justificative à faire valoir pour vos depenses hors forfait" value="null" required />
+            title="Sélectionnez une pièce justificative à faire valoir pour vos depenses hors forfait" value="null" required/>
+            <div class="cb"></div>
           </p>
 
         </fieldset>
@@ -200,6 +204,7 @@ else { // on ne fait rien, étape non prévue
         <p>
           <input id="ajouter" type="submit" value="Ajouter" size="20"
           title="Ajouter la nouvelle ligne hors forfait" />
+          <div class="cb"></div>
         </p>
       </div>
     </form>

@@ -169,16 +169,16 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
         <table class="listeLegere">
           <caption>Quantités des éléments forfaitisés</caption>
           <thead>
-            <th>libelle</th>
-            <th>quantite</th>
-            <th>remboursement</th>
+            <th>Libelle</th>
+            <th>Quantite</th>
+            <th>Remboursement</th>
           </thead>
           <tr>
             <?php
             $dico = array('ETP' => 'Etape',
-                          'KM'=> 'Kilométre',
-                          'NUI' => 'Nuité',
-                          'REP'=> 'Repas');
+            'KM'=> 'Kilométre',
+            'NUI' => 'Nuitée',
+            'REP'=> 'Repas');
             $i = 0;
             $km = calculRemboursementKm($idVis, $moisSaisi, $idConnexion);
             $prix = recupererFraitForfait($idConnexion);
@@ -233,7 +233,10 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
             </tr>
           </table>
           <table class="listeLegere">
-            <caption>Descriptif des éléments hors forfait - <?php echo $tabFicheFrais["nbJustificatifs"]; ?> justificatifs reçus -
+            <?php
+            //var_dump(obtenirNbJustificatif($idVisiteur, $moisSaisi, $idConnexion)[0][0]);
+             ?>
+            <caption>Descriptif des éléments hors forfait - <?php echo obtenirNbJustificatif($idVisiteur, $moisSaisi, $idConnexion)[0][0]; ?> justificatifs reçus -
             </caption>
             <thead>
 
@@ -241,6 +244,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
               <th class="libelle">Libellé</th>
               <th class="montant">Montant</th>
               <th>Etat</th>
+              <th>justificatif</th>
 
             </thead>
             <tbody>
@@ -269,7 +273,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
                       <input type="text" name="<?php echo ("id".$i); ?>" value="<?php echo ( $lgEltHorsForfait["id"]); ?>" hidden>
                       <select class="" name="<?php echo ("acceptation".$i); ?>" <?php if ($role == 1) {?> disabled <?php }; ?> >
 
-                        <option value="" disabled <?php if ($lgEltHorsForfait["acceptation"]=='--'){?> selected <?php } ; ?> >etat</option>
+                        <option value="" disabled <?php if ($lgEltHorsForfait["acceptation"]=='--'){?> selected <?php } ; ?> > en attente de traitement comptable </option>
                         <option value="Ok" <?php if ($lgEltHorsForfait["acceptation"]=='Ok'){?> selected <?php } ; ?> >Accepter</option>
                         <option value="No" <?php if ($lgEltHorsForfait["acceptation"]=='No'){?> selected <?php } ; ?> >Refuser</option>
                         <option value="At" <?php if ($lgEltHorsForfait["acceptation"]=='At'){?> selected <?php } ; ?> >en attente de justificatif </option>
@@ -277,6 +281,8 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
 
                       </select>
                     </td>
+                    <td> <a href="<?php echo $lgEltHorsForfait["justificatif"] ; ?>"> Justificatif</a></td>
+
 
                   </tr>
                   <?php
@@ -293,11 +299,14 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
               </tbody>
 
             </table>
-            <input type="submit" name="" value="Accepter" title="valider la selection" <?php if ($role == 1) {?> disabled <?php }; ?> >
+            <?php
+            if($role==2){ ?>
+              <input type="submit" name="" value="Accepter" title="valider la selection" <?php if ($role == 1) {?> disabled <?php }; ?> >
+            <?php } ?>
           </form>
+
           <?php
           if (isset($_POST)){
-            var_dump($_POST);
             $idVis = lireDonneePost('id', $idVis);
             $moisSaisi = lireDonneePost('date', $moisSaisi);
           };
@@ -310,7 +319,7 @@ if ($etape == "validerConsult") { // l'utilisateur valide ses nouvelles données
     }
     ?>
     <fieldset>
-      <legend>selectioné le mois pour la generation des fiche de frais</legend>
+      <legend>selectioné le mois pour la generation des fiches de frais</legend>
 
       <form class="" action="pdf.php" method="post">
         <select class="" name="mois">

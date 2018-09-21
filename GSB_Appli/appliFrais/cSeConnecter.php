@@ -50,13 +50,17 @@ require($repInclude . "_entete.inc.html");
   <form id="frmConnexion" action="" method="post">
     <div class="corpsForm">
       <input type="hidden" name="etape" id="etape" value="validerConnexion" />
+
       <p>
         <label for="txtLogin" accesskey="n">* Login : </label>
         <input type="text" id="txtLogin" name="txtLogin" maxlength="20" size="15" value="" title="Entrez votre login" />
+        <div class="cb"></div>
       </p>
       <p>
         <label for="txtMdp" accesskey="m">* Mot de passe : </label>
+
         <input type="password" id="txtMdp" name="txtMdp" maxlength="8" size="15" value=""  title="Entrez votre mot de passe"/>
+        <div class="cb"></div>
       </p>
       <div style="clear:both">
 
@@ -68,6 +72,7 @@ require($repInclude . "_entete.inc.html");
     <div class="piedForm">
       <p>
         <input class="bouton" type="submit" id="ok" value="Valider" />
+        <div class="cb"></div>
       </p>
     </div>
   </form>

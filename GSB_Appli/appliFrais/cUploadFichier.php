@@ -17,7 +17,7 @@
 ?>
   <!-- Division principale -->
   <div id="contenu">
-    <h2>envoyer les justifivatif</h2>
+    <h2>envoyer les justifivatifs</h2>
     <h3>type de fichier</h3>
     <?php
 $typeJustificatif = recupererTypeJustificatif($idConnexion);
@@ -29,27 +29,12 @@ $typeJustificatif = recupererTypeJustificatif($idConnexion);
     <form  action="include\_uploadFichier.php" method="POST" enctype="multipart/form-data" >
       <select class="" name="typeJustificatif" required>
         <option disabled selected>type de justificatif </option>
-        <option value="HF">Hors Forfait</option>
+        <!-- <option value="HF">Hors Forfait</option> -->
         <option value="CG">Carte Grise </option>
         <option value="AT">Autre</option>
       </select>
       <br>
-      <select  name="mois" >
-        <option  disabled selected>mois</option>
-        <?php
-        $listMois = obtenirTousMoisFicheFrais($idConnexion);
-
-        foreach ($listMois as $mois ) {
-          //var_dump($mois);
-          $noMois = intval(substr($mois[0], 4, 2));
-          $annee = intval(substr($mois[0], 0, 4));
-          ?>
-          <option value=<?php echo ($mois[0]); ?>><?php echo obtenirLibelleMois($noMois) . " " . $annee; ?></option>
-          <?php
-        };
-        ?>
-      </select>
-      <br>
+      <input type="date" name="mois" value="000000" hidden>
 <!-- <input type="file" name="fichier" title="selectioner un fichier" required> -->
 <input type="file"  name="fichier" accept=".jpg, .bmp, .png , .jpeg"
                        title="Sélectionnez une pièce justificative à faire valoir pour vos depenses hors forfait" value="null" required />

@@ -251,7 +251,7 @@ function obtenirReqEltsForfaitFicheFrais($unMois, $unIdVisiteur, $idCnx) {
 */
 function obtenirReqEltsHorsForfaitFicheFrais($unMois, $unIdVisiteur, $idCnx) {
   $unMois = filtrerChainePourBD($unMois, $idCnx);
-  $requete = "select id, date, libelle, montant, acceptation from LigneFraisHorsForfait
+  $requete = "select id, date, libelle, montant, acceptation, justificatif from LigneFraisHorsForfait
   where idVisiteur='" . $unIdVisiteur
   . "' and mois='" . $unMois . "'
   and acceptation <> 'No'";
@@ -712,7 +712,7 @@ function obtenirFicheFrait($mois, $idCnx){
 *@param $idCnx un string de l'instance de connexion
 */
 function obtenirTousMoisFicheFrais($idCnx){
-  $req = "SELECT distinct mois FROM fichefrais WHERE 1 ORDER BY mois";
+  $req = "SELECT distinct mois FROM fichefrais WHERE 1 ORDER BY mois LIMIT 12";
   $rep = mysqli_query($idCnx,$req);
   $rep = mysqli_fetch_all(mysqli_query($idCnx, $req));
   //var_dump($rep);
@@ -756,12 +756,20 @@ function recupererToutLesMoisVisiteur($idVisiteur , $idCnx){
 
 
 *@param $id un string de l'id de la fiche hors forfait
-*@param $etat un string de l'etat a mettre de la fiche 
+*@param $etat un string de l'etat a mettre de la fiche
 *@param $idCnx un string de l'instance de connexion
 */
 function changerEtatHorsForfait($id, $etat, $idCnx){
   $req = "UPDATE lignefraishorsforfait SET acceptation = '".$etat."' WHERE id = '".$id."'";
   mysqli_query($idCnx , $req);
+
+};
+
+function obtenirNbJustificatif ($idVis, $mois, $idCnx){
+$req ="SELECT COUNT(justificatif) FROM `lignefraishorsforfait` WHERE idvisiteur = '".$idVis."' and mois = '".$mois."'";
+$res = mysqli_query($idCnx, $req);
+$res = mysqli_fetch_all($res);
+return $res;
 
 }
 ?>

@@ -78,43 +78,65 @@ require($repInclude . "_sommaire.inc.php");
 
 
         <fieldset>
-          <legend>créé un utilisateur</legend>
-          <p>
-            <label for="id">Id :</label>
-            <input type="text" name="id" value="<?php echo($utilisateur['id']); ?>" maxlength="4" required readonly>
-          </p>
+          <legend>Modifier un utilisateur</legend>
+          <?php
+          if (obtenirRole($idUser, $idConnexion)["Role"]==3){
+            ?>
+            <p>
+              <label for="id">Id :</label>
+              <input type="text" name="id" value="<?php echo($utilisateur['id']); ?>" maxlength="4" required readonly>
+            </p>
+            <div class="cb"></div>
+            <?php
+          }
+          ?>
           <p>
             <label for="nom">Nom :</label>
             <input type="text" name="nom" value="<?php echo($utilisateur['nom']); ?>" maxlength="30"  required>
           </p>
+          <div class="cb"></div>
+
           <p>
             <label for="prenom">Prenom :</label>
             <input type="text" name="prenom" value="<?php echo($utilisateur['prenom']); ?>" maxlength="30"required>
+            <div class="cb"></div>
           </p>
           <p>
             <label for="password">Mot de passe :</label>
             <input type="password" name="password" value="" maxlength="8" required>
+            <div class="cb"></div>
           </p>
           <p>
             <label for="passwordVerif">Confirmer le mot de passe  :</label>
             <input type="password" name="passwordVerif" value="" maxlength="8"  required>
+            <div class="cb"></div>
           </p>
           <p>
             <label for="adresse">Adresse :</label>
             <input type="text" name="adresse" value="<?php echo($utilisateur['adresse']); ?>" maxlength="30" >
+            <div class="cb"></div>
           </p>
           <p>
             <label for="cp">Code postal :</label>
             <input type="number" name="cp" value="<?php echo($utilisateur['cp']); ?>" maxlength="5" >
+            <div class="cb"></div>
           </p>
           <p>
             <label for="ville">Ville :</label>
             <input type="text" name="ville" value="<?php echo($utilisateur['ville']); ?>" maxlength="30" >
+            <div class="cb"></div>
           </p>
-          <p>
-            <label for="dateEmbauche">Date d'embauche :</label>
-            <input type="date" name="dateEmbauche" value="<?php echo($utilisateur['dateEmbauche']); ?>"  readonly>
-          </p>
+          <?php
+          if (obtenirRole($idUser, $idConnexion)["Role"]==3){
+            ?>
+            <p>
+              <label for="dateEmbauche">Date d'embauche :</label>
+              <input type="date" name="dateEmbauche" value="<?php echo($utilisateur['dateEmbauche']); ?>"  readonly>
+              <div class="cb"></div>
+            </p>
+            <?php
+          }
+          ?>
           <?php
           if (obtenirRole($idUser, $idConnexion)["Role"]==3){
             ?>
@@ -134,6 +156,7 @@ require($repInclude . "_sommaire.inc.php");
                   <?php
                 };
                 ?>
+                <div class="cb"></div>
               </select>
             </p>
             <?php
@@ -141,67 +164,69 @@ require($repInclude . "_sommaire.inc.php");
           ?>
           <br><br>
         </fieldset>
-        </div>
+      </div>
 
-        <div class="piedForm">
+      <div class="piedForm">
 
 
+
+        <div class="cb"></div>
         <input id="ok" type="submit" value="Valider" size="20" title="Enregistrer les modification" />
-</div>
-        <br>
-        <br>
-        <?php
-        if (!empty($_POST)){
-          if (!isset($_POST['password'])){
-            $_POST['password'] = 'init';
-          };
-          if (!isset($_POST['passwordVerif'])){
-            $_POST['passwordVerif'] = 'initi';
-          };
-          //var_dump($_POST);
-          //VerificationIdLibre($_POST['id'], $idConnexion);
-          if ($_POST['password'] == $_POST['passwordVerif'] && !empty($_POST['password'])) {
+      </div>
+      <br>
+      <br>
+      <?php
+      if (!empty($_POST)){
+        if (!isset($_POST['password'])){
+          $_POST['password'] = 'init';
+        };
+        if (!isset($_POST['passwordVerif'])){
+          $_POST['passwordVerif'] = 'initi';
+        };
+        //var_dump($_POST);
+        //VerificationIdLibre($_POST['id'], $idConnexion);
+        if ($_POST['password'] == $_POST['passwordVerif'] && !empty($_POST['password'])) {
 
-            /*
-            echo($_POST['id']);
-            echo( $_POST['nom']);
-            echo($_POST['prenom']);
-            echo($_POST['password']);
-            echo($_POST['adresse']);
-            echo($_POST['cp']);
-            echo($_POST['ville']);
-            echo($_POST['dateEmbauche']);
-            echo($_POST['Role']);*/
-            ?>
+          /*
+          echo($_POST['id']);
+          echo( $_POST['nom']);
+          echo($_POST['prenom']);
+          echo($_POST['password']);
+          echo($_POST['adresse']);
+          echo($_POST['cp']);
+          echo($_POST['ville']);
+          echo($_POST['dateEmbauche']);
+          echo($_POST['Role']);*/
+          ?>
 
-            <?php
-            ModifierUtilisateur ($_POST['id'], $_POST['nom'],$_POST['prenom'],$_POST['password'],$_POST['adresse'],$_POST['cp'],$_POST['ville'],$_POST['Role'],$idConnexion);
-            ?><p class="info"> L'utilisateur a bien modifié</p><?php
+          <?php
+          ModifierUtilisateur ($_POST['id'], $_POST['nom'],$_POST['prenom'],$_POST['password'],$_POST['adresse'],$_POST['cp'],$_POST['ville'],$_POST['Role'],$idConnexion);
+          ?><p class="info"> L'utilisateur a bien modifié</p><?php
+        }
+        else {
+
+          ?><p class="erreur" id="error"> Les deux mot de passe sont differants</p>
+          <script type="text/javascript">
+          if (!error){
+            document.getElementById(error)style.display = "block";
+            var error = true;
           }
-          else {
-
-            ?><p class="erreur" id="error"> Les deux mot de passe sont differant</p>
-            <script type="text/javascript">
-            if (!error){
-              document.getElementById(error)style.display = "block";
-              var error = true;
-          }
-            </script>
-            <?php
-          };
+          </script>
+          <?php
+        };
 
 
 
         ?>
       </form>
     </div>
-  <?php
-}
- ?>
+    <?php
+  }
+  ?>
   <?php
   require($repInclude . "_pied.inc.html");
   require($repInclude . "_fin.inc.php");
   ?>
   <script type="text/javascript">
-      document.getElementById("error").style.display = "none";
+  document.getElementById("error").style.display = "none";
   </script>

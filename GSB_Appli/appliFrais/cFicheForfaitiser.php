@@ -17,11 +17,11 @@ require($repInclude . "_sommaire.inc.php");
 ?>
 <!-- Division principale -->
 <div id="contenu">
-  <h2>gestion des fiches de frait forfaitisé</h2>
+  <h2>Gestion des fiches de frais forfaitisée</h2>
   <form class="" action="" method="post">
     <div class="corpsForm">
       <fieldset>
-        <legend>selectioner le mois des fiche de frait a afficher</legend>
+        <legend>Selectionez le mois des fiches de frais à afficher</legend>
 
         <select class="mois" name="mois" >
           <option value="" disabled selected>mois</option>
@@ -71,9 +71,9 @@ $fiches = obtenirFicheFrait($mois,$idConnexion);
           <th></th>
           <th>nom</th>
           <th>prenom</th>
-          <th>etape</th>
-          <th>kilomètre</th>
-          <th>nuit</th>
+          <th>etapes</th>
+          <th>kilométres</th>
+          <th>nuitées</th>
           <th>repas</th>
           <th>etat</th>
         </tr>
@@ -119,7 +119,7 @@ $fiches = obtenirFicheFrait($mois,$idConnexion);
   </fieldset>
   <br>
 
-  <input type="submit" id="ok" title="valider les fiche de frais" onclick="if(document.getElementById(etat)!=''){}" >
+  <input type="submit" id="ok" title="valider les fiche de frais" >
 </form>
 </div>
 <?php
@@ -133,7 +133,7 @@ if (isset($_POST)){
     //print_r($info);
     ?><br><br><?php
     if(modifierEtatFicheFrais($idConnexion, $mois, $info, $etat)){
-      ?><p class="info"> les fiche on bien était modifier</p><?php
+      ?><p class="info"> les fiches ont bien été modifié</p><?php
     }
 
   }

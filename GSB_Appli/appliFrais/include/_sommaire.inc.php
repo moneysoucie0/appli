@@ -48,7 +48,7 @@
               <a href="cSaisirVoiture.php" title="Saisie de ma voiture">Saisie du vehicule</a>
             </li>
             <li class="smenu">
-               <a href="cUploadFichier.php" title="chager des fichier ">charger les justificatif</a>
+               <a href="cUploadFichier.php" title="chager des fichier ">Charger les justificatif</a>
              </li>
 
             <?php
@@ -56,7 +56,7 @@
             if ($role['Role'] == 2){
               ?>
             <li class="smenu">
-               <a href="cConsultFichesFrais.php" title="fiche forfaitiser">fiche forfaitiser </a>
+               <a href="cConsultFichesFrais.php" title="fiche forfaitisée">Fiche forfaitisée </a>
             </li>
             <!--
             <li class="smenu">
@@ -64,7 +64,7 @@
             </li>
             -->
             <li class="smenu">
-               <a href="cChangerRemboursement.php" title="changer les remboursement">changer les remboursement</a>
+               <a href="cChangerRemboursement.php" title="modifier les forfait">Modifier les forfaits</a>
              </li>
 
          <?php
@@ -72,7 +72,7 @@
          if ($role['Role'] == 3){
            ?>
          <li class="smenu">
-            <a href="cUtilisateur.php" title="ajouter un utilisateur">ajouter un utilisateur</a>
+            <a href="cUtilisateur.php" title="ajouter un utilisateur">Ajouter un utilisateur</a>
          </li>
 
 
@@ -80,7 +80,7 @@
         };
        ?>
        <li class="smenu">
-          <a href="cModifierInformationUtilisateur.php" title="modifier ses information">changer mes informations</a>
+          <a href="cModifierInformationUtilisateur.php" title="modifier ses information">Changer mes informations</a>
        </li>
          <li class="smenu">
             <a href="cSeDeconnecter.php" title="Se déconnecter">Se déconnecter</a>
